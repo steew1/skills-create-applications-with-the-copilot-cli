@@ -2,6 +2,14 @@
   "name": "create-calc-app",
   "version": "0.1.0",
   "description": "Simple Node.js CLI calculator (add, subtract, multiply, divide)",
-  "bin": {"calc": "src/index.js"},
-  "license": "MIT"
+  "bin": {
+    "calc": "src/index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+    "test": "jest --colors"
+  }
 }

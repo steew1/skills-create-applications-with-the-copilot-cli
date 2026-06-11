@@ -2,7 +2,9 @@
 // Node.js CLI Calculator
 // Supported operations: addition (+), subtraction (-), multiplication (*), division (/)
 // Based only on the four basic math operations shown in images/js-calculator.png
-// Referenced issue: #2 Feature request: calculator CLI (calculator.js) - basic arithmetic operations
+// This CLI delegates core math to src/calc.js
+
+const { add, subtract, multiply, divide } = require('./calc');
 
 const args = process.argv.slice(2);
 if (args.length !== 3) {
@@ -20,40 +22,36 @@ if (Number.isNaN(a) || Number.isNaN(b)) {
 }
 
 let result;
-switch (op) {
-  case '+':
-  case 'add':
-    // addition
-    result = a + b;
-    break;
-  case '-':
-  case 'sub':
-  case 'subtract':
-    // subtraction
-    result = a - b;
-    break;
-  case '*':
-  case 'x':
-  case 'X':
-  case 'mul':
-    // multiplication
-    result = a * b;
-    break;
-  case '/':
-  case 'div':
-    // division
-    if (b === 0) {
-      console.error('Error: division by zero');
+try {
+  switch (op) {
+    case '+':
+    case 'add':
+      result = add(a, b);
+      break;
+    case '-':
+    case 'sub':
+    case 'subtract':
+      result = subtract(a, b);
+      break;
+    case '*':
+    case 'x':
+    case 'X':
+    case 'mul':
+      result = multiply(a, b);
+      break;
+    case '/':
+    case 'div':
+      result = divide(a, b);
+      break;
+    default:
+      console.error('Unsupported operator. Supported operators: +  -  *  /');
       process.exit(2);
-    }
-    result = a / b;
-    break;
-  default:
-    console.error('Unsupported operator. Supported operators: +  -  *  /');
-    process.exit(2);
+  }
+} catch (err) {
+  console.error('Error:', err.message);
+  process.exit(2);
 }
 
-// Print result
 if (Number.isFinite(result)) {
   console.log(result);
 } else {
