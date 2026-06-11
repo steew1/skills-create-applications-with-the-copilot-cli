@@ -1,0 +1,7 @@
+{
+  "name": "create-calc-app",
+  "version": "0.1.0",
+  "description": "Simple Node.js CLI calculator (add, subtract, multiply, divide)",
+  "bin": {"calc": "src/index.js"},
+  "license": "MIT"
+}
