@@ -17,6 +17,19 @@ describe('Calculator operations', () => {
     expect(div(20, 5)).toBe(4);
   });
 
+  // Extended operation examples (from image)
+  test('5 % 2 = 1', () => {
+    expect(modulo(5, 2)).toBe(1);
+  });
+
+  test('2 ^ 3 = 8', () => {
+    expect(power(2, 3)).toBe(8);
+  });
+
+  test('sqrt(16) = 4', () => {
+    expect(squareRoot(16)).toBe(4);
+  });
+
   test('10 % 3 = 1', () => {
     expect(modulo(10, 3)).toBe(1);
   });
