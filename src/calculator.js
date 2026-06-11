@@ -28,6 +28,26 @@ function isNumeric(n) {
   return !isNaN(n) && isFinite(n);
 }
 
+// Pure calculator functions exported for unit testing
+function add(a, b) {
+  return a + b;
+}
+
+function sub(a, b) {
+  return a - b;
+}
+
+function mul(a, b) {
+  return a * b;
+}
+
+function div(a, b) {
+  if (b === 0) {
+    throw new Error('Division by zero');
+  }
+  return a / b;
+}
+
 function main(argv) {
   const args = argv.slice(2);
 
@@ -52,36 +72,39 @@ function main(argv) {
   }
 
   let result;
-  switch (op) {
-    case 'add':
-      // addition
-      result = a + b;
-      break;
-    case 'sub':
-      // subtraction
-      result = a - b;
-      break;
-    case 'mul':
-      // multiplication
-      result = a * b;
-      break;
-    case 'div':
-      // division
-      if (b === 0) {
-        console.error('Error: Division by zero is not allowed.');
+  try {
+    switch (op) {
+      case 'add':
+        // addition
+        result = add(a, b);
+        break;
+      case 'sub':
+        // subtraction
+        result = sub(a, b);
+        break;
+      case 'mul':
+        // multiplication
+        result = mul(a, b);
+        break;
+      case 'div':
+        // division
+        result = div(a, b);
+        break;
+      default:
+        console.error(`Error: Unknown operation '${op}'.`);
+        printHelp();
         process.exit(1);
-      }
-      result = a / b;
-      break;
-    default:
-      console.error(`Error: Unknown operation '${op}'.`);
-      printHelp();
-      process.exit(1);
+    }
+  } catch (err) {
+    console.error(`Error: ${err.message}`);
+    process.exit(1);
   }
 
   // Print result to stdout
   console.log(result);
 }
+
+module.exports = { add, sub, mul, div, isNumeric };
 
 if (require.main === module) {
   main(process.argv);
